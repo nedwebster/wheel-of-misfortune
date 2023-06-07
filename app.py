@@ -51,3 +51,4 @@ if __name__ == "__main__":
         wheel_of_misfortune.update_config()
         st.title(f"The wheel landed on {selected_person}, congratulations!")
         st_lottie(firework_animation)
+        commit_new_config()
