@@ -1,6 +1,8 @@
 import json
 import requests
 import time
+from datetime import date
+from git import Repo
 
 import streamlit as st
 from streamlit_lottie import st_lottie, st_lottie_spinner
@@ -18,6 +20,18 @@ def load_wheel() -> WheelOfMisfortune:
 def load_animation(url: str):
     animation = requests.get(url)
     return animation.json()
+
+
+def commit_new_config():
+    try:
+        repo = Repo(".")
+        repo.git.add(update=True)
+        commit_message = f"wheel spin on {str(date.today())}"
+        repo.index.commit(commit_message)
+        origin = repo.remote(name='origin')
+        origin.push()
+    except Exception:
+        print('Some error occured while pushing the code')
 
 
 if __name__ == "__main__":
