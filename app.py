@@ -4,6 +4,7 @@ import time
 from datetime import date
 from git import Repo
 
+import pandas as pd
 import streamlit as st
 from streamlit_lottie import st_lottie, st_lottie_spinner
 
@@ -42,6 +43,8 @@ if __name__ == "__main__":
     wheel_of_misfortune = load_wheel()
 
     st.title("QOTW: Wheel of Misfortune")
+
+    st.table(wheel_of_misfortune.place_your_bets())
 
     if st.button(label="Spin the wheel!"):
         with st_lottie_spinner(wheel_animation, speed=1.5, loop=False):
