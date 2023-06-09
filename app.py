@@ -44,8 +44,6 @@ if __name__ == "__main__":
 
     st.title("QOTW: Wheel of Misfortune")
 
-    data = pd.DataFrame.from_dict(wheel_of_misfortune.place_your_bets(), orient="index", columns=["probability"])
-
     if st.button(label="Spin the wheel!"):
         with st_lottie_spinner(wheel_animation, speed=1.5, loop=False):
             time.sleep(4)
@@ -56,4 +54,5 @@ if __name__ == "__main__":
         st_lottie(firework_animation)
         commit_new_config()
 
+    data = pd.DataFrame.from_dict(wheel_of_misfortune.place_your_bets(), orient="index", columns=["probability"])
     st.table(data)
