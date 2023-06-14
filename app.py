@@ -4,6 +4,7 @@ import time
 from datetime import date
 from git import Repo
 
+import pandas as pd
 import streamlit as st
 from streamlit_lottie import st_lottie, st_lottie_spinner
 
@@ -52,3 +53,6 @@ if __name__ == "__main__":
         st.title(f"The wheel landed on {selected_person}, congratulations!")
         st_lottie(firework_animation)
         commit_new_config()
+
+    data = pd.DataFrame.from_dict(wheel_of_misfortune.place_your_bets(), orient="index", columns=["probability"])
+    st.table(data)

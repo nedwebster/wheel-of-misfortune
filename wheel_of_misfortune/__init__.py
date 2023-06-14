@@ -60,3 +60,19 @@ class WheelOfMisfortune:
 
         with open("wheel_of_misfortune_config.json", "w") as file:
             json.dump(config, file, indent=4)
+
+    def place_your_bets(self) -> dict:
+        """Create a dictionary where the keys are members names, and the values are their probability to be selected."""
+
+        odds_dict = {}
+
+        for person in self.team_members:
+            odds_dict[person] = self.available_picks.count(person) / len(self.available_picks)
+
+        # sort dict and format decimals to percentages
+        odds_dict = {
+            k: '{:.1%}'.format(v) for k, v in
+            sorted(odds_dict.items(), key=lambda item: item[1], reverse=True)
+        }
+
+        return odds_dict
