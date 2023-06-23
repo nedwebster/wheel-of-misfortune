@@ -31,9 +31,11 @@ class WheelOfMisfortune:
         if len(self.available_picks) == 0:
             self.available_picks = self.team_members
 
-    def spin_the_wheel(self):
+    def spin_the_wheel(self, ignore_list: List[str] = []):
         """Select a member of the team to ask QOTW, and update the class attributes accordingly."""
-        the_lucky_one = random.choice(self.available_picks)
+
+        available_picks = [name for name in self.available_picks if name not in ignore_list]
+        the_lucky_one = random.choice(available_picks)
         self._update_attributes(name=the_lucky_one)
 
         return the_lucky_one
