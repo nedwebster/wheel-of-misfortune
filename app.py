@@ -44,12 +44,19 @@ if __name__ == "__main__":
 
     st.title("QOTW: Wheel of Misfortune")
 
+    st.write("Ignore this week")
+    ignore_list = {}
+    for person in wheel_of_misfortune.team_members:
+        ignore_list[person] = st.checkbox(person)
+
     if st.button(label="Spin the wheel!"):
         with st_lottie_spinner(wheel_animation, speed=1.5, loop=False):
             time.sleep(4)
 
-        selected_person = wheel_of_misfortune.spin_the_wheel()
+        ignore_list = [k for k, v in ignore_list.items() if v]
+        selected_person = wheel_of_misfortune.spin_the_wheel(ignore_list=ignore_list)
         wheel_of_misfortune.update_config()
+
         st.title(f"The wheel landed on {selected_person}, congratulations!")
         st_lottie(firework_animation)
         commit_new_config()
