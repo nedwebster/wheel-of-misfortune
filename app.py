@@ -49,6 +49,14 @@ if __name__ == "__main__":
     for person in wheel_of_misfortune.team_members:
         ignore_list[person] = st.checkbox(person)
 
+    m = st.markdown("""
+        <style>
+        div.stButton > button:first-child {
+            background-color: rgb(204, 49, 49);
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
     if st.button(label="Spin the wheel!"):
         with st_lottie_spinner(wheel_animation, speed=1.5, loop=False):
             time.sleep(4)
@@ -63,3 +71,19 @@ if __name__ == "__main__":
 
     data = pd.DataFrame.from_dict(wheel_of_misfortune.place_your_bets(), orient="index", columns=["probability"])
     st.table(data)
+
+    st.header("Add New Member")
+    with st.form(key="Add Member", clear_on_submit=True):
+        name = st.text_input("Name")
+        submit = st.form_submit_button("Add")
+        if submit:
+            wheel_of_misfortune.add_new_member(name=name)
+            st.experimental_rerun()
+
+    st.header("Remove Member")
+    with st.form(key="Remove Member", clear_on_submit=True):
+        name = st.text_input("Name")
+        submit = st.form_submit_button("Remove")
+        if submit:
+            wheel_of_misfortune.remove_member(name=name)
+            st.experimental_rerun()

@@ -78,3 +78,15 @@ class WheelOfMisfortune:
         }
 
         return odds_dict
+
+    def add_new_member(self, name: str):
+        if name in self.team_members:
+            raise ValueError(f"{name} already in the list of players!")
+        self.team_members.append(name)
+        self.available_picks.append(name)
+        self.update_config()
+
+    def remove_member(self, name: str):
+        self.team_members = [x for x in self.team_members if x != name]
+        self.available_picks = [x for x in self.available_picks if x != name]
+        self.update_config()
